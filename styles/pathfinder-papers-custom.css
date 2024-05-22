@@ -1,0 +1,527 @@
+/*
+    Welcome to the inner sanctum of your own personal playground to design your
+    own wonderful-looking journals! Having mutliple different active journal 
+    themes (much like say, character sheets in the D&D 5e system) is something 
+    I eventually want to tackle, but is not yet implemented as journals are not
+    natively extensible the same way, as far as I've seen, so if anyone wants to
+    reach out with a solution on how to do that, it would be greatly appreciated!
+    Otherwise, see below for the general variables you can set to better customize
+    your experience, whether it is to get that unique Sci-Fi look, make a
+    dark theme or log your adventures in a cuter, funnier or grimer theme. Have fun!
+                                                            - Sanyella
+
+    Personalizing your journals
+    *************************************
+    If you want to customize the look of your journals, you can simply modify the
+    variables' values for a uniform change. It is unrecommended to individually
+    change values for elements, as these changes can become hard to track and to
+    keep uniform, but the power is in your hands! It is after all quite possible 
+    that my original settings do not allow for the exact thing you want, or we do 
+    not perfectly agree on what belongs as an "accent", and that's ok :)
+
+    Different things that cannot be parametherized with variables are also in there,
+    I've tried to tag the most interesting ones with OPTION to make them easily 
+    searchable (do you want drop caps at the beginning of your paragraphs, for 
+    instance?).
+    
+    A final word of warning:
+    Especially since there is currently no concept of multiple "themes" and no
+    permanence of any of your changes, though updates aren't likely to come up all
+    that often for this little module, they might still happen (such as perhaps to 
+    introduce such theming) and ANY CHANGES YOU WOULD HAVE MADE WOULD BE LOST.
+
+    ###############################################################################
+    # PLEASE SAVE ANY CHANGES YOU WANT TO KEEP OUTSIDE OF THE MODULE TO SET THOSE #
+    # BACK IN CASE OF A MODULE UPDATE.                                            #
+    ###############################################################################
+
+    Thanks, attributions & links
+    *************************************
+    Thanks to both Stryxin's dark mode module (https://github.com/Stryxin/dnd5edark-foundryvtt)
+    and Felix's BetterNPCSheet module (https://github.com/syl3r86/BetterNPCSheet5e)
+    which have both helped me tremendously in understanding how to structure my own
+    module.
+    Lovers Quarrel font: https://fonts.google.com/specimen/Lovers+Quarrel
+    Anglo-text font: https://www.1001fonts.com/anglo-text-font.html
+        For more drop-cap fonts: https://www.1001fonts.com/drop-caps-fonts.html
+        And how to add them: https://www.pagecloud.com/blog/how-to-add-custom-fonts-to-any-website
+    Dark background 1: https://www.publicdomainpictures.net/en/view-image.php?image=169017&picture=grunge-background
+    Parchment 1, by FilterForge : https://www.flickr.com/photos/filterforge/9340122531
+
+*/
+
+/*
+    Variables for uniform color control
+    Using an editor like VSCode which has a built in color picker or an external 
+    ressource that gives you the hexadecimal color code from a color picker is 
+    recommended. Be careful too to give them a name unique to your theme so as to 
+    not encounter any problems with properties overriding one another (just 
+    search-and-replace the "--template-" pattern)
+*/
+
+body {
+    --template-dark-accent-color: #CFCFCF;
+    --template-base-accent-color: #000;
+    --template-light-accent-color: #1b47d6;
+    --template-translucent-accent-color: #00239440;
+    --template-header-color: #000;
+    --template-base-text-color: #000;
+    --template-link-color: #3b56b1;
+    --template-link-visited-color: #405494;
+    --template-window-text-color: #000;
+    --template-button-background-color: #FFFFFF30;
+    --template-button-hover-color: #FFFFFFBB;
+    --template-background-color: none;
+    --template-background-texture-image: url();
+}
+
+.sheet.journal-entry.pathfinder-papers-custom {
+	background: none !important;
+	background-color: none !important;
+	box-shadow: none;
+	padding: 0 60px;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom::before {
+	content: " ";
+	background: url(../textures/journalpapers.png);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+	pointer-events: none;
+	align-self: center;
+  z-index: -1;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .journal-entry-content {
+	border: none;
+	height: 86%;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .journal-sidebar {
+	background-image: var(--template-background-texture-image);
+	padding: 1px 23px;
+  margin-bottom: 72px;
+  margin-left: -24px;
+  margin-right: 30px;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .editor-edit {
+	color: #e9e9e9 !important;
+	background-color: #FFFFFF30 !important;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .action-buttons button {
+	font-family: 'Arial' !important;
+	background-color: var(--template-button-background-color);
+	border: none !important;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .pages-list .directory-item.active:first-of-type {
+	border-top: none !important;
+	border-bottom: 1px solid transparent;
+	color: #CFCFCF;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .pages-list .directory-item.active::before {
+	background: url(../textures/title-background.png);
+	background-size: 100% 100%;
+	align-self: center;
+	z-index: -1;
+	content: " ";
+	position: absolute;
+	width: 101%;
+	height: 135%;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .pages-list .directory-item.active > :not(.active) {
+	border: none !important;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .pages-list
+ .directory-item.active .page-number,
+.sheet.journal-entry.pathfinder-papers-custom .pages-list
+ .directory-item.active .page-title {
+	color: #CFCFCF !important;
+}
+
+
+.sheet.journal-entry.pathfinder-papers-custom .pages-list .directory-item {
+	margin-top: 15px;
+	border: none !important;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .window-header {
+	padding-bottom: 20px;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .page-heading {
+	font-family: Times New Roman, Arial;
+	font-size: 1.0em;
+	color: #CFCFCF;
+	margin-left: 15px;
+	margin-top: 5px;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .page-title {
+	color: #CFCFCF;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .page-number {
+	color: #CFCFCF;
+	font-size: 1.4em;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .pages-list .directory-item.active:last-of-type {
+	border: none !important;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .journal-sidebar .directory-header .collapse-toggle {
+	display: none;
+}
+
+/************************************************
+	Headers and text
+************************************************/
+
+.sheet.journal-entry.pathfinder-papers-custom h1,
+.sheet.journal-entry.pathfinder-papers-custom h2,
+.sheet.journal-entry.pathfinder-papers-custom h3 {
+    border-bottom: 1px solid var(--template-base-accent-color);
+    color: var(--template-header-color);
+}
+
+.sheet.journal-entry.pathfinder-papers-custom h4,
+.sheet.journal-entry.pathfinder-papers-custom h5,
+.sheet.journal-entry.pathfinder-papers-custom h6 {
+    color: var(--template-header-color);
+}
+
+.sheet.journal-entry.pathfinder-papers-custom p {
+    color: var(--template-base-text-color);
+}
+
+/* bullet-point list */
+
+.sheet.journal-entry.pathfinder-papers-custom ul {
+    color: var(--template-base-text-color);
+}
+
+/* numbered list */
+.sheet.journal-entry.pathfinder-papers-custom ol {
+    color: var(--template-base-text-color);
+}
+
+/* tables in general */
+
+.sheet.journal-entry.pathfinder-papers-custom tbody {
+    color: var(--pathfinder-papers-custom-base-text-color);
+}
+
+/* table header cells */
+
+.sheet.journal-entry.pathfinder-papers-custom th {
+    color: var(--pathfinder-papers-custom-header-color);
+}
+
+/* MEME minimal compatibility */
+
+.sheet.journal-entry.pathfinder-papers-custom .CodeMirror {
+    color: var(--pathfinder-papers-custom-base-text-color);
+}
+
+/* The cursor indicating where you are writing */
+
+.sheet.journal-entry.pathfinder-papers-custom .CodeMirror-cursor {
+    border-left: 1px solid var(--pathfinder-papers-custom-base-text-color);
+}
+
+/************************************************
+    Special text and highlights
+************************************************/
+
+.sheet.journal-entry.pathfinder-papers-custom blockquote {
+    color: var(--template-base-text-color);
+}
+
+/* Links (internet) */
+
+.sheet.journal-entry.pathfinder-papers-custom a:link {
+    color: var(--template-link-color);
+}
+
+.sheet.journal-entry.pathfinder-papers-custom a:visited {
+    color: var(--template-link-visited-color);
+}
+
+.sheet.journal-entry.pathfinder-papers-custom a:hover {
+    color: var(--template-link-color);
+    text-shadow: 0px 0px 2px var(--template-light-accent-color);
+}
+
+/* Links (entity, rolls) */
+
+.sheet.journal-entry.pathfinder-papers-custom a.entity-link,
+.sheet.journal-entry.pathfinder-papers-custom a.content-link,
+.sheet.journal-entry.pathfinder-papers-custom a.inline-roll {
+    background-color: var(--template-button-background-color);
+}
+
+/* Secret section */
+
+.sheet.journal-entry.pathfinder-papers-custom section.secret {
+    color: var(--template-base-text-color);
+    background-color: #df94ee20;
+}
+
+/* Modifies Polyglot CSS */
+
+.sheet.journal-entry.pathfinder-papers-custom .polyglot-journal {
+    background-color: #00239440;
+}
+
+/* 
+    OPTION Drop cap - you can add font and color options to this block, too!
+    Changing sizes and fonts might require you to test and tweak quite a bit
+    to get exactly the effect you want, but hey, drop caps are cool! 
+*/
+
+.sheet.journal-entry.pathfinder-papers-custom span.drop-cap {
+    float: left;
+    font-family: 'anglo_textregular';
+    font-size: 3em;
+    line-height: 0.8em;
+    padding-top: 0em;
+    padding-bottom: 0em;
+    color: var(--template-header-color);
+}
+
+/************************************************
+    OPTION Added block styles
+************************************************/
+
+.sheet.journal-entry.pathfinder-papers-custom section.simple-block {
+    color: var(--template-base-text-color);
+    background-color: var(--template-translucent-accent-color);
+    border: 1px solid var(--template-base-accent-color);
+    padding: 4px;
+    margin-right: 2%;
+    margin-left: 2%;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom section.simple-block-float {
+    color: var(--template-base-text-color);
+    background-color: var(--template-translucent-accent-color);
+    border: 1px solid var(--template-base-accent-color);
+    padding: 4px;
+    margin-right: 2%;
+    margin-left: 2%;
+    width: 35%;
+    float: right;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom section.ridged-block {
+    color: var(--template-base-text-color);
+    background-color: var(--template-translucent-accent-color);
+    border: 5px ridge var(--template-base-accent-color);
+    padding: 4px;
+    margin-right: 2%;
+    margin-left: 2%;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom section.ridged-block-float {
+    color: var(--template-base-text-color);
+    background-color: var(--template-translucent-accent-color);
+    border: 5px ridge var(--template-base-accent-color);
+    padding: 4px;
+    margin-right: 2%;
+    margin-left: 2%;
+    width: 35%;
+    float: right;
+}
+
+/************************************************
+    Background and various window elements
+************************************************/
+
+/* Journal title */
+
+.sheet.journal-entry.pathfinder-papers-custom .journal-entry-content input[type="text"] {
+    color: var(--template-header-color);
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .journal-entry-content input[type="text"]:focus,
+.sheet.journal-entry.pathfinder-papers-custom .journal-entry-content input[type="text"]:hover {
+    box-shadow: 0 0 10px var(--template-base-accent-color);
+}
+
+/* Background */
+
+.sheet.journal-entry.pathfinder-papers-custom .journal-entry-content {
+    background: var(--template-background-texture-image);
+}
+
+.sheet.journal-entry.pathfinder-papers-custom button {
+    background-color: var(--template-button-background-color);
+    color: var(--template-window-text-color);
+    border-color: var(--template-button-hover-color);
+}
+
+.sheet.journal-entry.pathfinder-papers-custom button:hover {
+    background-color: var(--template-button-hover-color);
+    box-shadow: 0 0 10px var(--template-base-accent-color);
+}
+
+.sheet.journal-entry.pathfinder-papers-custom ::-webkit-scrollbar-thumb {
+    background: var(--template-dark-accent-color);
+    border: 1px solid var(--template-base-accent-color);
+}
+
+/* Folder dropdown - upper bar */
+
+.sheet.journal-entry.pathfinder-papers-custom .editable select[name="folder"] {
+    color: var(--template-window-text-color);
+    background: url(../textures/dark-background-1.jpg);
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .editable select[name="folder"]:focus {
+    box-shadow: 0 0 5px var(--template-base-accent-color);
+}
+
+/* Folder dropdown - the actual dropdown */
+
+.sheet.journal-entry.pathfinder-papers-custom .editable select[name="folder"] option {
+    color: var(--template-window-text-color);
+    background-color: var(--template-button-hover-color);
+}
+
+/*
+    One Journal compatibility
+*/
+
+/* Background with OneJournal */
+
+#OneJournalShell .sheet.journal-entry.pathfinder-papers-custom.one-journal-attached .journal-entry-content {
+    background: var(--template-background-texture-image);
+}
+
+/* Entry title underline with OneJournal */
+
+.sheet.journal-entry.pathfinder-papers-custom.one-journal-attached form input[name="name"] {
+    border-color: var(--template-base-accent-color);
+}
+
+/************************************************
+    Editor 
+    OPTION - depending on if you want the editing experience to be more or less
+    the same as the modified presentation, or a more streamlined editing look, it
+    is here that you should look to enable, disable, or tweak things.
+************************************************/
+
+/* Background */
+
+.sheet.journal-entry.pathfinder-papers-custom .editor .tox-edit-area {
+    /* background: var(--template-background-texture-image); */
+    background-color: var(--template-background-color);
+}
+
+/* Buttons in edit mode */
+
+.sheet.journal-entry.pathfinder-papers-custom .editor button {
+    color: var(--template-base-text-color);
+    background-color: var(--template-button-background-color);
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .editor button:hover {
+    color: var(--template-base-text-color);
+    background-color: var(--template-button-hover-color);
+}
+
+/* Header bar where the buttons are in edit mode */
+
+.sheet.journal-entry.pathfinder-papers-custom .editor .tox-toolbar-overlord, .sheet.journal-entry.pathfinder-papers-custom .editor .tox-toolbar__primary {
+    background-color: var(--template-background-color);
+}
+
+/* Button to go into edit mode */
+
+.sheet.journal-entry.pathfinder-papers-custom .editor-edit {
+    color: var(--template-base-text-color);
+    background-color: var(--template-button-background-color);
+}
+
+/* Allows for the button images to be in colour */
+
+.sheet.journal-entry.pathfinder-papers-custom .tox :not(svg):not(rect) {
+    fill: var(--template-base-text-color);
+    color: var(--template-base-text-color);
+}
+
+/************************************************
+Table of contents and the entire side panael for pages
+that was introduced in v10's Journals 2.0 update.
+************************************************/
+/* ToC */
+.sheet.journal-entry.pathfinder-papers-custom .journal-sidebar {
+    background-image: var(--template-background-texture-image);
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .directory-header,
+.sheet.journal-entry.pathfinder-papers-custom .pages-list,
+.sheet.journal-entry.pathfinder-papers-custom .action-buttons {
+    font-family: 'anglo-textregular';
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .pages-list .directory-item.active:first-of-type {
+    border-top: 1px solid var(--template-base-accent-color);
+    border-bottom: 1px solid transparent;
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .pages-list .directory-item.active + :not(.active) {
+    border-top: 1px solid var(--template-base-accent-color);
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .pages-list .directory-item {
+    border-top: 1px solid var(--template-base-accent-color);
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .header-search input[type="search"],
+.sheet.journal-entry.pathfinder-papers-custom .header-search input[type="search"]::placeholder  {
+    background-color: var(--template-background-color)
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .header-search input[type="search"]:-ms-input-placeholder {
+    background-color: var(--template-background-color)
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .header-search input[type="search"]::-ms-input-placeholder {
+    background-color: var(--template-background-color)
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .action-buttons button {
+    font-family: 'anglo_textregular';
+    font-weight: bolder;
+    background-color: var(--template-button-background-color)
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .action-buttons button:hover {
+    background-color: var(--template-button-hover-color)
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .page-title {
+    font-size: 1.5em;
+    color: var(--template-header-color);
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .heading-link {
+    font-size: 1.3em;
+    color: var(--template-header-color);
+}
+
+.sheet.journal-entry.pathfinder-papers-custom .pages-list .directory-item:active,
+.sheet.journal-entry.pathfinder-papers-custom .pages-list .directory-item:hover,
+.sheet.journal-entry.royal-one-journal .heading-link:active,
+.sheet.journal-entry.pathfinder-papers-custom .heading-link:hover {
+    color: var(--template-light-accent-color);
+}
